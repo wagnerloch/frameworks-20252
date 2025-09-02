@@ -1,6 +1,7 @@
+import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
-export default function Index() {
+export default function Projects() {
   return (
     <View
       style={{
@@ -9,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Login do Usuário.</Text>
+      <Text>Listagem de projetos.</Text>
     </View>
   );
 }

@@ -10,17 +10,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Text> FALA PESSOAL!!!! </Text>
-      <Link href={"/config"}>IR PARA CONFIGURAÇÕES</Link>
-      <Link href={{
-        pathname: "/itens/[id]",
-        params: {
-          id: 123,
-          name: "Item 123",
-          description: "Descrição do Item 123"
-        }
-      }}>Ir para a tela do Item 123</Link>
+      <Link href={"/(auth)/login"}>LOGIN</Link>
+      <Link href={"/(auth)/signup"}>SIGNUP</Link>
     </View>
   );
 }

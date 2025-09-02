@@ -1,5 +1,14 @@
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+  const isLoggedIn = false;
+
+  return (<Stack screenOptions={{ headerShown: false }}>
+    <Stack.Protected guard={isLoggedIn}>
+      <Stack.Screen name="projects/index" />
+    </Stack.Protected>
+    <Stack.Protected guard={!isLoggedIn}>
+      <Stack.Screen name="index" />
+    </Stack.Protected>
+  </Stack>);
 }
