@@ -3,17 +3,19 @@ import { CustomInput } from "@/components/CustomInput";
 import { styles } from "@/styles/auth/login.styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import {
+  Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
-  Image,
-  TextInput,
 } from "react-native";
+import { authService } from '../../services/auth';
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -24,8 +26,23 @@ export default function Signup() {
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handleSignUp = () => {
-    console.log("Sign Up:", { name, email, password });
+  const handleSignUp = async () => {
+    if (!name || !email || !password) {
+      Alert.alert('Error', 'Por favor, preencha todos os campos');
+      return;
+    }
+
+    const result = await authService.signup({
+      name,
+      email,
+      password,
+    });
+
+    if (result.success) {
+      router.replace('/projects');
+    } else {
+      Alert.alert('Error', result.message || 'Falha ao criar conta');
+    }
   };
 
   const handleLogin = () => {

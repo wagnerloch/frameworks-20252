@@ -1,24 +1,37 @@
-import { useState } from 'react';
-import {
-  Text,
-  View,
-  Image,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
+import { useState } from 'react';
+import {
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { CustomButton, CustomInput } from '../../components';
+import { authService } from '../../services/auth';
 import { styles } from '../../styles/auth/login.styles';
-import { CustomInput, CustomButton } from '../../components';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    console.log('Login:', { email, password });
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Por favor, preencha todos os campos');
+      return;
+    }
+
+    const result = await authService.login(email, password);
+    
+    if (result.success) {
+      router.push('/projects');
+    } else {
+      Alert.alert('Error', result.message || 'Credenciais inválidas');
+    }
   };
 
   const handleSignUp = () => {
